@@ -15,7 +15,7 @@ resource "aws_subnet" "public" {
 }
 
 resource "aws_instance" "web" {
-  ami           = "ami-0c55b159cbfafe1f0" # Amazon Linux 2 (Frankfurt)
+  ami           = "ami-0c55b159cbfafe1f0" # Amazon Linux 2 (Frankfurt.)
   instance_type = var.instance_type
   subnet_id     = aws_subnet.public.id
 
@@ -23,3 +23,4 @@ resource "aws_instance" "web" {
     Name = "web-server"
   }
 }
+

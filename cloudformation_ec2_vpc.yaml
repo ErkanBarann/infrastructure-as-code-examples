@@ -1,0 +1,31 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Simple VPC and EC2 setup
+
+Resources:
+  MyVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      Tags:
+        - Key: Name
+          Value: my-vpc
+
+  MySubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref MyVPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone: !Select [0, !GetAZs !Ref "AWS::Region"]
+      Tags:
+        - Key: Name
+          Value: my-subnet
+
+  MyInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-0c55b159cbfafe1f0 # Amazon Linux 2 (Frankfurt)
+      InstanceType: t2.micro
+      SubnetId: !Ref MySubnet
+      Tags:
+        - Key: Name
+          Value: my-instance
